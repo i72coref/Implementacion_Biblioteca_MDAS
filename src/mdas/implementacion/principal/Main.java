@@ -2,6 +2,7 @@ package mdas.implementacion.principal;
 
 import java.util.Scanner;
 import mdas.implementacion.usuarios.*;
+import mdas.implementacion.SistemaReserva.*;
 
 public class Main {
 	
@@ -47,7 +48,7 @@ public class Main {
             case 3:
             	
     			Identificacion opcionelegida3 = new Identificacion();
-    			opcionelegida3.registroUsuario2();
+    			opcionelegida3.registroUsuario();
             	break;
             	
             case 4:
@@ -93,15 +94,16 @@ public class Main {
 						   "1. Reservar Aula.\n"+
 						   "2. Mis Reservas.\n"+
 						   "3. Mis Sanciones.\n"+
-						   "4. Salir. \n");
+						   "4. Consultar Reservas.\n"+
+						   "5. Salir. \n");
 		
         opcion = sn.nextInt();
         sn.nextLine();
         
 		switch(opcion) {
 		case 1:
-			Funciones opcion1 = new Funciones();
-			opcion1.reservarAula(userOnline);
+			SistemaReserva opcionReserva = new SistemaReserva();
+			opcionReserva.reservarAula(userOnline);
 			break;
 			
 		case 2:
@@ -114,7 +116,8 @@ public class Main {
 			break;
 			
 		case 4:
-			
+			SistemaReserva opcionReserva1 = new SistemaReserva();
+			opcionReserva1.consultarReservas();
 			break;
 			
         default:
@@ -155,8 +158,8 @@ public class Main {
         
 		switch(opcion) {
 		case 1:
-			Funciones opcion1 = new Funciones();
-			opcion1.añadirSala();
+			//Funciones opcion1 = new Funciones();
+			//opcion1.añadirSala();
 			break;
 		case 2:
 			

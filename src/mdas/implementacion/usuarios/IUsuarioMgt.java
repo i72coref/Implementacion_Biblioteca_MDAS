@@ -8,5 +8,6 @@ public interface IUsuarioMgt {
 	public void setPassword(String password);
 	public String iniciarSesion();
 	boolean registroUsuario2();
+	public boolean registroUsuario();
 
 }
