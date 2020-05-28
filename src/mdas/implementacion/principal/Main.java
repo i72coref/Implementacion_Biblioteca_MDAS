@@ -96,8 +96,9 @@ public class Main {
 						   "Seleccione una opcion valida:\n\n"+
 						   "1. Reservar Aula.\n"+
 						   "2. Consultar Reservas.\n"+
-						   "3. Modificar Reserva\n"+
-						   "4. Salir. \n");
+						   "3. Mis Reservas.\n"+
+						   "4. Modificar Reserva\n"+
+						   "5. Salir. \n");
 		
         opcion = sn.nextInt();
         sn.nextLine();
@@ -116,11 +117,20 @@ public class Main {
 			
 		case 3:
 			
+			
 			break;
 			
 		case 4:
-			SistemaReserva opcionReserva1 = new SistemaReserva();
-			opcionReserva1.consultarReservas();
+			SistemaReserva opcionModificar = new SistemaReserva();
+			opcionModificar.modificarUnaReserva(userOnline);
+			break;
+			
+		case 5:
+			
+			System.out.println("\n \nGracias por usar el Software\n"+"Hasta la proxima!");
+			salir = true;
+			System.exit(0);
+			
 			break;
 			
         default:
@@ -154,6 +164,7 @@ public class Main {
 						   "Seleccione una opcion valida:\n\n"+
 						   "1. Registrar Sala de Estudio.\n"+
 						   "2. Borrar Sala de Estudio.\n"+
+						   "3. Consultar Reservas.\n"+
 						   "3. Salir. \n");
 		
         opcion = sn.nextInt();
@@ -161,13 +172,16 @@ public class Main {
         
 		switch(opcion) {
 		case 1:
-			GestionEspacio opcion1 = new GestionEspacio();
-			if( opcion1.añadirEspacio() == true ) {
+			GestionEspacio opcionRegistrar = new GestionEspacio();
+			if( opcionRegistrar.añadirEspacio() == true ) {
 				System.out.println("El espacio se ha añadido correctamente");
 			}
 			break;
 		case 2:
-			
+			GestionEspacio opcionBorrar = new GestionEspacio();
+			if( opcionBorrar.borrarEspacio() == true ) {
+				System.out.println("El espacio se ha borrado correctamente");
+			}
 			break;
 		case 3:
 			System.out.println("\n \nGracias por usar el Software\n"+"Hasta la proxima!");
@@ -191,20 +205,5 @@ public class Main {
 		}
 	} //VOID menuAdmin
 	
-	/*
-	public static void ReservaAula(String[] args) {
-		
-		
-		System.out.println("Reserva de Aula: \n"+
-				   		   "--------------- \n");
-		
-		System.out.println("Intruduce el Numero de alumnos:\n");
-		
-		
-	} //Void Reserva Aula
-	
-	public static void MisSanciones(String[] args) {
-		
-	} //Void Mis Sanciones*/
 	
 } //Clase MAIN.

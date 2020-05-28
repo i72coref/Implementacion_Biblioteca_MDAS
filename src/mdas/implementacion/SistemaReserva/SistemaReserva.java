@@ -137,6 +137,36 @@ public void reservarAula(String userOnline) {//He pensado en que tengamos una il
 		}
 	}
 	
+	public boolean consultarReservasUser(String UserOnline) {
+		try {
+			
+			String ficheroReservas= "Reservas.csv";
+			BufferedReader readerStudent = new BufferedReader(new FileReader("files" + File.separator + ficheroReservas));
+	       
+			String line = "";
+	        while((line = readerStudent.readLine()) != null){        	
+	        	
+	        	//Alumno alTemp = new Alumno(0,null,null,0);
+	            String[] array = line.split(";");
+	            String part1 = array[0]; //Alumno
+	    		String part2 = array[1]; //Fecha
+	    		String part3 = array[2]; //Responsable
+	    		String part4 = array[3]; //Aula
+	    		
+	    		if(part1.equals(UserOnline)) {
+	    			return true;
+	    		}
+	    		
+	        }
+	        
+	        readerStudent.close();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return false;
+	}
+	
 	public String comprobarDisponibilidadDeFecha(String aulaDeseada) {
 		
 		try {
@@ -197,6 +227,48 @@ public void reservarAula(String userOnline) {//He pensado en que tengamos una il
 		return false;
 
 		
+	}
+	
+	public boolean modificarUnaReserva(String UserOnline) {
+		
+		try {
+			
+			if (consultarReservasUser(UserOnline) == true) {
+				System.out.println("Estamos Activos");
+			
+			
+			Scanner sn = new Scanner (System.in);
+			int opcion;
+			
+	        opcion = sn.nextInt();
+	        sn.nextLine();
+			
+			System.out.println("¿Que dato de la Reserva deseas modificar?: \n"+
+			   		"------------------------------------------------"+ 
+			   "Seleccione una opcion valida:\n\n"+
+			   "1. Aforo\n"+
+			   "2. Tipo de Sala\n"+
+			   "3. Pizarra\n"+
+			   "4. Proyector \n");
+			
+			switch(opcion) {
+			
+			
+			case 1:
+				break;
+				
+			default:
+				System.out.println("Esa opción no está disponible o no has escrito el número bien.\n");
+			}
+			
+			
+			return true; //modificarUnaReserva
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return false;
 	}
 	
 }
