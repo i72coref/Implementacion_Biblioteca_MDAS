@@ -67,6 +67,11 @@ public boolean registroUsuario() {
 
 		System.out.println("Escriba el nombre de usuario: ");
 		user=entradaEscaner.nextLine();
+		while( (user.indexOf("admin") != -1)) {
+			System.out.println("No puedes crear un usuario con nombre: admin");
+			System.out.println("Escriba de nuevo el nombre de usuario: ");
+			user=entradaEscaner.nextLine();
+		}
 		System.out.println("Escriba una contraseña: ");
 		pass=entradaEscaner.nextLine();
 		//Meter comprobacion
@@ -85,6 +90,7 @@ public boolean registroUsuario() {
 		
 	} //FIN boolean Registro Usuario
 	
+	/*
 	public boolean registroUsuario2() {
 		Scanner entradaEscaner = new Scanner (System.in); //Creación de un objeto Scanner, perteneciente a la biblioteca util
 		String user="",pass="";
@@ -93,8 +99,8 @@ public boolean registroUsuario() {
 	    BufferedWriter bw = null;
 	    File fold = null;
 	    File fnew = null;
-	    String ruta1 = "C:\\Users\\Pnh\\git\\MDAS_proyecto22\\files\\Users2.csv";
-	    String ruta2 = "C:\\Users\\Pnh\\git\\MDAS_proyecto22\\files\\Users.csv";
+	    String ruta1 = "C:\\Users\\Pnh\\git\\MDAS_proyecto22\\files\\Users.csv";
+	    String ruta2 = "C:\\Users\\Pnh\\git\\MDAS_proyecto22\\files\\Users2.csv";
 	    
 	    try{
 	    
@@ -134,5 +140,5 @@ public boolean registroUsuario() {
 		System.out.println("Registro Incorrecto");
 		return false;
 		
-	}
+	}*/
 }

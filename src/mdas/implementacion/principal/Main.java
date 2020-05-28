@@ -3,6 +3,7 @@ package mdas.implementacion.principal;
 import java.util.Scanner;
 import mdas.implementacion.usuarios.*;
 import mdas.implementacion.SistemaReserva.*;
+import mdas.implementacion.Espacio.*;
 
 public class Main {
 	
@@ -19,10 +20,9 @@ public class Main {
     		System.out.println("Sistema de Reserva de Bibliotecas\n" +
 					   "----------------------------------\n"+
 					   "Seleccione una opcion valida:\n\n"+
-					   "1. Iniciar Sesion: Alumno.\n"+
-					   "2. Iniciar Sesion: Administrador.\n"+
-					   "3. Registrar Nueva Cuenta. \n"+
-					   "4. Salir. \n");
+					   "1. Iniciar Sesion.\n"+
+					   "2. Registrar Nueva Cuenta. \n"+
+					   "3. Salir. \n");
             opcion = sn.nextInt();
             sn.nextLine();
             
@@ -32,26 +32,29 @@ public class Main {
         		String userOnline = "";
     			userOnline = opcionelegida1.iniciarSesion();
     			if(userOnline != null) {
-        			menuAlumno(userOnline);	
+    				
+    				if( (userOnline.indexOf("admin") == -1)) {
+    					menuAlumno(userOnline);
+    				}
+    				else {
+    					menuAdmin(userOnline);
+    				}
+        				
     			}
             	break;
             
             case 2:
-            	//Funciones opcionelegida2 = new Funciones();
-            	String adminOnline = "";
-            	//adminOnline = opcionelegida2.iniciarSesion();
-    			if(adminOnline != null) {
-        			//menuAlumno(userOnline);	
-    			}
+            	
+            	Identificacion opcionelegida2 = new Identificacion();
+            	if(opcionelegida2.registroUsuario() == false) {
+            		System.out.println("Registro Incorrecto vuelve a intentarlo!\n");
+            	}
+            	else {
+            		System.out.println("Registro Correcto!\n");
+            	}
             	
             	break;
             case 3:
-            	
-    			Identificacion opcionelegida3 = new Identificacion();
-    			opcionelegida3.registroUsuario();
-            	break;
-            	
-            case 4:
     			System.out.println("\n \nGracias por usar el Software\n"+"Hasta la proxima!");
     			salir = true;
     			System.exit(0);
@@ -88,14 +91,13 @@ public class Main {
 		while(!salir) {
 			
 			
-		System.out.println("Bienvenido: \n"+
+		System.out.println("Bienvenido Alumno: \n"+
 						   "-----------"+ 
 						   "Seleccione una opcion valida:\n\n"+
 						   "1. Reservar Aula.\n"+
-						   "2. Mis Reservas.\n"+
-						   "3. Mis Sanciones.\n"+
-						   "4. Consultar Reservas.\n"+
-						   "5. Salir. \n");
+						   "2. Consultar Reservas.\n"+
+						   "3. Modificar Reserva\n"+
+						   "4. Salir. \n");
 		
         opcion = sn.nextInt();
         sn.nextLine();
@@ -107,7 +109,8 @@ public class Main {
 			break;
 			
 		case 2:
-			
+			SistemaReserva opcionConsultar = new SistemaReserva();
+			opcionConsultar.consultarReservas();
 			
 			break;
 			
@@ -121,7 +124,7 @@ public class Main {
 			break;
 			
         default:
-        	System.out.println("Esa opción no está disponible.");
+        	System.out.println("Esa opción no está disponible o no has escrito el número bien.\n");
         	
 		} //fin switch
 		
@@ -146,11 +149,11 @@ public class Main {
 		while(!salir) {
 			
 			
-		System.out.println("Bienvenido: \n"+
+		System.out.println("Bienvenido Administrador: \n"+
 						   "-----------"+ 
 						   "Seleccione una opcion valida:\n\n"+
-						   "1. Añadir Aula.\n"+
-						   "2. Borrar Sala"+
+						   "1. Registrar Sala de Estudio.\n"+
+						   "2. Borrar Sala de Estudio.\n"+
 						   "3. Salir. \n");
 		
         opcion = sn.nextInt();
@@ -158,8 +161,10 @@ public class Main {
         
 		switch(opcion) {
 		case 1:
-			//Funciones opcion1 = new Funciones();
-			//opcion1.añadirSala();
+			GestionEspacio opcion1 = new GestionEspacio();
+			if( opcion1.añadirEspacio() == true ) {
+				System.out.println("El espacio se ha añadido correctamente");
+			}
 			break;
 		case 2:
 			
@@ -171,7 +176,7 @@ public class Main {
 			break;
 			
         default:
-        	System.out.println("Esa opción no está disponible.");
+        	System.out.println("Esa opción no está disponible o no has escrito el número bien.");
         	
 		} //fin switch
 		
