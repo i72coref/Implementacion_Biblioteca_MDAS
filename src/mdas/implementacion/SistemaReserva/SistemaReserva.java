@@ -74,7 +74,7 @@ public class SistemaReserva {
 	    		String part4 = array[3]; //proyector
 	    		String part5 = array[4]; //pizarra
 	    		String part6 = array[5]; //Tipo sala
-	    		System.out.println(part1);
+	    		
 	    		
 	    		aforoAula = Integer.parseInt(part3);
 	    		proyectorAula = Integer.parseInt(part4);
@@ -229,7 +229,7 @@ public class SistemaReserva {
 	    		if(aulaDeseada.equals(part4) && fechaDeseada.equals(part2)) {
 	    			
 	    			readerReservas.close();
-	    	        System.out.println("No se ha podido encontrar ningun aula disponible con las especificaciones dadas");
+	    	        System.out.println("Ese dia ya ha sido reservado, escoja otro");
 	    			return false;//Salgo de la funcion
 	    		}
 	        }
