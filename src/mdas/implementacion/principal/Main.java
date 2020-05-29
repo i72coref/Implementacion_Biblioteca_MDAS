@@ -96,9 +96,9 @@ public class Main {
 						   "-----------"+ 
 						   "Seleccione una opcion valida:\n\n"+
 						   "1. Reservar Aula.\n"+
-						   "2. Consultar Reservas.\n"+
-						   "3. Mis Reservas.\n"+
-						   "4. Modificar Reserva\n"+
+						   "2. Consultar: Todas las Reservas.\n"+
+						   "3. Consultar: Mis Reservas.\n"+
+						   "4. Modificar Mis Reservas\n"+
 						   "5. Salir. \n");
 		
         opcion = sn.nextInt();
@@ -167,8 +167,8 @@ public class Main {
 						   "Seleccione una opcion valida:\n\n"+
 						   "1. Registrar Sala de Estudio.\n"+
 						   "2. Borrar Sala de Estudio.\n"+
-						   "3. Consultar Reservas.\n"+
-						   "3. Salir. \n");
+						   "3. Consultar: Todas las Reservas.\n"+
+						   "4. Salir. \n");
 		
         opcion = sn.nextInt();
         sn.nextLine();
@@ -187,6 +187,11 @@ public class Main {
 			}
 			break;
 		case 3:
+			SistemaReserva opcionConsultar = new SistemaReserva();
+			opcionConsultar.consultarReservas();
+			
+			break;
+		case 4:
 			System.out.println("\n \nGracias por usar el Software\n"+"Hasta la proxima!");
 			salir = true;
 			System.exit(0);
