@@ -405,7 +405,10 @@ public class SistemaReserva {
 			writer.close(); 
 			reader.close(); 
 			System.out.println("okf");
-
+			if (inputFile.delete())
+		        System.out.println("El fichero ha sido borrado satisfactoriamente");
+		    else
+		        System.out.println("El fichero no pudó ser borrado");
 			boolean successful = tempFile.renameTo(inputFile);
 		}catch (Exception e) {
 			// TODO: handle exception
