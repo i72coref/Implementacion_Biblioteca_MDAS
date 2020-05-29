@@ -15,6 +15,7 @@ public interface IGestionReserva {
 	public void consultarReservas();
 	public String comprobarDisponibilidadDeFecha(String aulaDeseada);
 	public Boolean comprobarFechaConFicheroDeReserva(String fechaDeseada, String aulaDeseada);
-	
+	public Boolean comprobarFechaConLaActualDelDia();
+	public void removeLineFromFile(String file, String lineToRemove);
 	
 }

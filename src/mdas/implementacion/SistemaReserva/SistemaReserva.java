@@ -3,14 +3,21 @@ package mdas.implementacion.SistemaReserva;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class SistemaReserva {
 
-public void reservarAula(String userOnline) {//He pensado en que tengamos una ilsta con las posibilidades y que en funcion de las respuestas que nos den les asignmos ese aula, que estaria en un doc
+	public void reservarAula(String userOnline) {//He pensado en que tengamos una ilsta con las posibilidades y que en funcion de las respuestas que nos den les asignmos ese aula, que estaria en un doc
 		
 
 	    try {
@@ -66,7 +73,7 @@ public void reservarAula(String userOnline) {//He pensado en que tengamos una il
 	    		String part3 = array[2]; //aforo
 	    		String part4 = array[3]; //proyector
 	    		String part5 = array[4]; //pizarra
-	    		
+	    		String part6 = array[5]; //Tipo sala
 	    		System.out.println(part1);
 	    		
 	    		aforoAula = Integer.parseInt(part3);
@@ -126,7 +133,9 @@ public void reservarAula(String userOnline) {//He pensado en que tengamos una il
 	    		String part3 = array[2]; //Responsable
 	    		String part4 = array[3]; //Aula
 	    		
-	    		System.out.println("El alumno " + part1 + " ha realizado una reserva para el día " + part2 + " del aula " + part4 + " y como responsable " + part3);
+	    		if(comprobarFechaConLaActualDelDia(part2)) {
+		    		System.out.println("El alumno " + part1 + " ha realizado una reserva para el día " + part2 + " del aula " + part4 + " y como responsable " + part3);
+	    		}
 	    		
 	        }
 	        
@@ -142,7 +151,7 @@ public void reservarAula(String userOnline) {//He pensado en que tengamos una il
 			
 			String ficheroReservas= "Reservas.csv";
 			BufferedReader readerStudent = new BufferedReader(new FileReader("files" + File.separator + ficheroReservas));
-	       
+	       int reservasEncontradas = 0;
 			String line = "";
 	        while((line = readerStudent.readLine()) != null){        	
 	        	
@@ -153,14 +162,21 @@ public void reservarAula(String userOnline) {//He pensado en que tengamos una il
 	    		String part3 = array[2]; //Responsable
 	    		String part4 = array[3]; //Aula
 	    		
-	    		if(part1.equals(UserOnline)) {
-	    			return true;
+	    		if(part1.equals(UserOnline) && comprobarFechaConLaActualDelDia(part2)) {
+	    			reservasEncontradas = 1;
+		    		System.out.println("El alumno " + UserOnline + " ha realizado una reserva para el día " + part2 + " del aula " + part4 + " y como responsable " + part3);
 	    		}
 	    		
 	        }
 	        
 	        readerStudent.close();
 			
+	        if(reservasEncontradas == 1) {
+	        	return true;
+	        }else {
+	        	return false;
+	        }
+	        
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -230,7 +246,8 @@ public void reservarAula(String userOnline) {//He pensado en que tengamos una il
 	}
 	
 	public boolean modificarUnaReserva(String UserOnline) {
-		
+		FileWriter fichero = null;
+        BufferedWriter pw = null;
 		try {
 			
 			if (consultarReservasUser(UserOnline) == true) {
@@ -240,22 +257,80 @@ public void reservarAula(String userOnline) {//He pensado en que tengamos una il
 			Scanner sn = new Scanner (System.in);
 			int opcion;
 			
-	        opcion = sn.nextInt();
-	        sn.nextLine();
+	        
+	        
+	        System.out.println("¿Que Reserva quieres modificar? Indica la fecha de esa reserva \n");
+	        String fechaReferencia = sn.nextLine();
+	        
+	        String ficheroReservas= "Reservas.csv";
+			BufferedReader readerStudent = new BufferedReader(new FileReader("files" + File.separator + ficheroReservas));
+	        
+	        String line = "";
+	        String alumnoM="";
+	        String fechaM="";
+	        String responsableM="";
+	        String aulaM="";
+	        String lineToRemove="";
+	        
+	        while((line = readerStudent.readLine()) != null){        	
+	        	
+	        	
+	            String[] array = line.split(";");
+	            String part1 = array[0]; //Alumno
+	    		String part2 = array[1]; //Fecha
+	    		String part3 = array[2]; //Responsable
+	    		String part4 = array[3]; //Aula
+	    		
+	    		if(part2.equals(fechaReferencia)) {
+	    			alumnoM = part1;
+	    			fechaM=part2;
+	    			responsableM=part3;
+	    			aulaM=part4;
+	    			
+	    			lineToRemove = alumnoM + ";" + fechaM + ";" + responsableM + ";" + aulaM;
+	    			
+	    		}
+	        }
+	        
+	        readerStudent.close();
+	        
 			
 			System.out.println("¿Que dato de la Reserva deseas modificar?: \n"+
 			   		"------------------------------------------------"+ 
 			   "Seleccione una opcion valida:\n\n"+
-			   "1. Aforo\n"+
-			   "2. Tipo de Sala\n"+
-			   "3. Pizarra\n"+
-			   "4. Proyector \n");
+			   "1. Fecha\n"+
+			   "2. Aula/Reserva\n");
 			
+			opcion = sn.nextInt();
+	        sn.nextLine();
+			removeLineFromFile(ficheroReservas, lineToRemove);
+
 			switch(opcion) {
 			
 			
 			case 1:
+				System.out.println("Escrible la nueva fecha: dd/MM/yyyy");
+				String fechaModificada = sn.nextLine();
+				
+				while(!comprobarFechaConLaActualDelDia(fechaModificada)) {
+					System.out.println("Escribe una fecha posterior al día de hoy");
+				}
+				
+				fichero = new FileWriter("files" + File.separator + ficheroReservas, true);
+	            pw = new BufferedWriter(fichero);
+	            pw.write(alumnoM + ";" + fechaModificada + ";" + responsableM + ";" + aulaM + "\n");
+	            
+	            System.out.println("Fecha modificada");
+	            pw.close();
+				
 				break;
+				
+			case 2:
+				
+				reservarAula(UserOnline);
+				
+				break;
+				
 				
 			default:
 				System.out.println("Esa opción no está disponible o no has escrito el número bien.\n");
@@ -263,12 +338,79 @@ public void reservarAula(String userOnline) {//He pensado en que tengamos una il
 			
 			
 			return true; //modificarUnaReserva
+			}else {
+				System.out.println("No tienes reservas realizadas, por tanto, no puedes modificar");
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		
 		return false;
+	}
+	
+	
+	public Boolean comprobarFechaConLaActualDelDia(String fechaDeseada) {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+		try {
+			
+	        Calendar fechaActual = new GregorianCalendar();
+	        //Obtenemos el valor del año, mes, día
+	        int año = fechaActual.get(Calendar.YEAR);
+	        int mes = fechaActual.get(Calendar.MONTH);
+	        int dia = fechaActual.get(Calendar.DAY_OF_MONTH);
+	        
+	        String cadenaFechaActual = dia+"/"+(mes+1)+"/"+año;
+			
+			Date fechaActualAComparar = sdf.parse(cadenaFechaActual);
+			Date fechaDeseadaAComparar = sdf.parse(fechaDeseada);
+			
+			if(0 > fechaActualAComparar.compareTo(fechaDeseadaAComparar)) {//Este caso si la fecha actual es mas pronto que la deseada
+				return true;
+			}else {
+				return false;
+			}
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
+	
+	
+	public void removeLineFromFile(String ficheroReservas, String lineToRemove) {
+
+		File inputFile = new File("files" + File.separator + ficheroReservas);
+		File tempFile = new File(inputFile.getAbsolutePath() + ".tmp");
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+			System.out.println("ok");
+			String currentLine;
+
+			while((currentLine = reader.readLine()) != null) {
+				System.out.println("okp");
+
+			    // trim newline when comparing with lineToRemove
+			    String trimmedLine = currentLine.trim();
+			    if(trimmedLine.equals(lineToRemove)) continue;
+				System.out.println("oki");
+
+			    writer.write(currentLine + System.getProperty("line.separator"));
+			}
+			writer.close(); 
+			reader.close(); 
+			System.out.println("okf");
+
+			boolean successful = tempFile.renameTo(inputFile);
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 	
 }

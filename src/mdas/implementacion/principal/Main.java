@@ -55,6 +55,7 @@ public class Main {
             	
             	break;
             case 3:
+      
     			System.out.println("\n \nGracias por usar el Software\n"+"Hasta la proxima!");
     			salir = true;
     			System.exit(0);
@@ -117,6 +118,8 @@ public class Main {
 			
 		case 3:
 			
+			SistemaReserva opcionConsultarMisReservas = new SistemaReserva();
+			opcionConsultarMisReservas.consultarReservasUser(userOnline);
 			
 			break;
 			
