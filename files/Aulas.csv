@@ -1,4 +1,4 @@
 Aula1;edificio1;30;1;2
-prueba;Leonardo Da Vinci;AULA;40;1;2
-esto es una prueba;Aulario;SALA_USO_MULTIPLE;555;1;1
-prueba3;Da Vinci;AULA;44;2;2
+Clase de primero;Edificio Leonardo Da Vinci;40;1;2;AULA
+Aula B11;Aulario;10;2;1;SALA_USO_MULTIPLE
+Clase Magistral;Edificio Albert Einstein;100;2;2;AULA
