@@ -5,11 +5,18 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.util.Scanner;
 
 
 public class Identificacion {
+	
+	
+	
+    /** 
+     * Comprueba que los Datos introducidos por el Usuario o Administrador son correctos.
+     * El usuario del administrador siempre contendrá admin, de lo contrario será un usuario normal más.
+     * @return null Si las credenciales introducidas por el usuario no concuerdan con las del fichero: Users.csv
+     */
 	
 	public String iniciarSesion() {
 		
@@ -23,7 +30,6 @@ public class Identificacion {
 			
 			System.out.println("Escriba el password: ");
 			pass=entradaEscaner.nextLine();
-			//C:\\Users\\david\\git\\MDAS_proyecto\\files
 			
 			String ficheroUsuarios ="Users.csv";
 			BufferedReader readerUser = new BufferedReader(new FileReader("files" + File.separator + ficheroUsuarios));
@@ -44,8 +50,10 @@ public class Identificacion {
 		            return user;
 	    		}
 	    		
+				entradaEscaner.close();
 	        }
 			readerUser.close();
+
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -54,7 +62,13 @@ public class Identificacion {
 		return null;
 	}
 	
-public boolean registroUsuario() {
+	/** 
+	 * Guarda las credenciales introducidas por un usuario normal y se guardan en el fichero: Users.csv.
+	 * Si un Administrador se desea registrar, no podrá hacerlo, ya que no se contempla que el nombre de ususario pueda contener addmin.
+	 * @return True si se ha registrado correctamente
+	 * @return False en caso contrario.
+	 */
+	public boolean registroUsuario() {
 		
 		Scanner entradaEscaner = new Scanner (System.in); //Creación de un objeto Scanner, perteneciente a la biblioteca util
 		String user="",pass="";
@@ -79,7 +93,8 @@ public boolean registroUsuario() {
         pw = new BufferedWriter(fichero);
         pw.write(user + ";" + pass + "\n");
         pw.close();
-
+        
+        entradaEscaner.close();
 		return true;
 		
 		}catch (Exception e) {
@@ -90,55 +105,4 @@ public boolean registroUsuario() {
 		
 	} //FIN boolean Registro Usuario
 	
-	/*
-	public boolean registroUsuario2() {
-		Scanner entradaEscaner = new Scanner (System.in); //Creación de un objeto Scanner, perteneciente a la biblioteca util
-		String user="",pass="";
-		
-	    BufferedReader br = null;
-	    BufferedWriter bw = null;
-	    File fold = null;
-	    File fnew = null;
-	    String ruta1 = "C:\\Users\\Pnh\\git\\MDAS_proyecto22\\files\\Users.csv";
-	    String ruta2 = "C:\\Users\\Pnh\\git\\MDAS_proyecto22\\files\\Users2.csv";
-	    
-	    try{
-	    
-	    fold = new File(ruta1);
-	    fnew = new File(ruta2);
-
-		System.out.println("Escriba el nombre de usuario: ");
-		user=entradaEscaner.nextLine();
-		System.out.println("Escriba una contraseña: ");
-		pass=entradaEscaner.nextLine();
-		
-		if(fold.exists()) {
-			
-			br = new BufferedReader(new FileReader(fold));
-			String linea;
-			
-			while( (linea=br.readLine()) != null) {
-				bw = new BufferedWriter(new FileWriter(fnew, true));
-				bw.write(linea+"\n");
-				bw.close();
-			}
-			br.close();
-			
-			bw = new BufferedWriter(new FileWriter(fnew, true));	
-			bw.write(user+";"+pass);
-			bw.close();
-			
-			fold.delete();
-			fnew.renameTo(fold);
-		}
-		System.out.println("Registro Correcto!");
-		return true;
-		
-		}catch (Exception e) {
-			// TODO: handle exception
-		}
-		System.out.println("Registro Incorrecto");
-		return false;
-		
-	}*/
 }

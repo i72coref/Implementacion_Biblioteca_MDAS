@@ -15,4 +15,6 @@ public interface IEspacioMgt {
 	public Boolean getPizarra();
 	public void setPizarra(Boolean pizarra);
 	public boolean añadirEspacio();
+	public void mostrarEspacios();
+	
 }

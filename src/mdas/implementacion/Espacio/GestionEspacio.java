@@ -9,10 +9,16 @@ import java.util.Scanner;
 
 public class GestionEspacio {
 	
+    /** 
+     * Añade un Espacio al fichero: Aulas.csv con los Datos introducidos por el Usuario Administrador.
+     * @return True si se añade el archivo correctamente.
+     * @return False en caso contrario.
+     */
+	
 	public boolean añadirEspacio() {
 		
 		Scanner entradaEscaner = new Scanner (System.in); //Creación de un objeto Scanner, perteneciente a la biblioteca util
-		int id;
+
 		String ubicacion, aforo, nombre;
 		int proyector, pizarra;
 		String categoriaEspacio; //AULA,SALA_USO_MULTIPLE,LABORATORIO
@@ -40,7 +46,8 @@ public class GestionEspacio {
         pw = new BufferedWriter(fichero);
         pw.write(nombre + ";" + ubicacion + ";" + aforo + ";" + proyector + ";" + pizarra +";"+ categoriaEspacio + "\n");
         pw.close();
-
+        
+        entradaEscaner.close();
 		return true;
 		
 		}catch (Exception e) {
@@ -51,57 +58,9 @@ public class GestionEspacio {
 		
 	}//Fin añadirEspacio
 	
-	public boolean borrarEspacio() {
-		Scanner entradaEscaner = new Scanner (System.in); //Creación de un objeto Scanner, perteneciente a la biblioteca util
-		String nombresala="", capacidadsala="";
-		
-	    BufferedReader br = null;
-	    BufferedWriter bw = null;
-	    File fold = new File("Aulas.csv");
-	    File fnew = new File("Aulas2.csv");
-
-	    try{
-	    
-	    mostrarEspacios();
-	    System.out.println("Escriba el Nombre de la Sala: ");
-		nombresala=entradaEscaner.nextLine();
-		
-		if(fold.exists()) {
-			
-			br = new BufferedReader(new FileReader(fold));
-			String linea;
-			
-			while( (linea=br.readLine()) != null) {
-				
-				if (linea.indexOf(nombresala) == -1) {
-				
-				bw = new BufferedWriter(new FileWriter(fnew, true));
-				bw.write(linea+"\n");
-				bw.close();
-				}
-				else {
-				
-				}
-			}
-			br.close();
-			
-			bw = new BufferedWriter(new FileWriter(fnew, true));	
-			bw.close();
-			
-			fold.delete();
-			fnew.renameTo(fold);
-		}
-		System.out.println("-------------");
-		return true;
-		
-		}catch (Exception e) {
-			// TODO: handle exception
-		}
-		System.out.println("ERROR!");
-		return false;
-		
-	} //Fin BorrarEspacio
-	
+    /** 
+     * Muestra por pantalla todos los Espacios disponibles en el fichero: Aulas.csv
+     */
 	public void mostrarEspacios() {
 		
 		try {
@@ -120,12 +79,15 @@ public class GestionEspacio {
 	            String part1 = array[0]; //Nombre
 	    		String part2 = array[1]; //Edificio
 	    		String part3 = array[2]; //Aforo
+	    		
+	    		/*Se guardan Proyector y Pizarra aunque no se usen, 
+	    		 * por si se contemplan usar en el futuro.
 	    		String part4 = array[3]; //Proyector
-	    		String part5 = array[4]; //Pizarra
+	    		String part5 = array[4]; //Pizarra */
+	    		
 	    		String part6 = array[5]; //Tipo Sala	
 	    		System.out.println("Nombre: "+part1+", Edificio: "+ part2+", Aforo: "+part3+", Tipo de Sala: "+part6+"\n");
 	        }
-	        
 	        
 	        
 	        readerAulas.close();
