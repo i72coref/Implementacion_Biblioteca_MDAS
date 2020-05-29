@@ -168,7 +168,8 @@ public class Main {
 						   "1. Registrar Sala de Estudio.\n"+
 						   "2. Borrar Sala de Estudio.\n"+
 						   "3. Consultar: Todas las Reservas.\n"+
-						   "4. Salir. \n");
+						   "4. Consultar Todas las Salas\n"+
+						   "5. Salir. \n");
 		
         opcion = sn.nextInt();
         sn.nextLine();
@@ -182,16 +183,23 @@ public class Main {
 			break;
 		case 2:
 			GestionEspacio opcionBorrar = new GestionEspacio();
-			if( opcionBorrar.borrarEspacio() == true ) {
+			opcionBorrar.mostrarEspacios();
+			/*if( opcionBorrar.borrarEspacio() == true ) {
 				System.out.println("El espacio se ha borrado correctamente");
-			}
+			}*/
 			break;
 		case 3:
 			SistemaReserva opcionConsultar = new SistemaReserva();
 			opcionConsultar.consultarReservas();
 			
 			break;
+			
 		case 4:
+			GestionEspacio opcionMostrarSalas = new GestionEspacio();
+			opcionMostrarSalas.mostrarEspacios();
+			break;
+			
+		case 5:
 			System.out.println("\n \nGracias por usar el Software\n"+"Hasta la proxima!");
 			salir = true;
 			System.exit(0);

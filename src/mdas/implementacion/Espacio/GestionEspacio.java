@@ -62,7 +62,8 @@ public class GestionEspacio {
 
 	    try{
 	    
-		System.out.println("Escriba el Nombre de la Sala: ");
+	    mostrarEspacios();
+	    System.out.println("Escriba el Nombre de la Sala: ");
 		nombresala=entradaEscaner.nextLine();
 		
 		if(fold.exists()) {
@@ -108,20 +109,21 @@ public class GestionEspacio {
 			String ficheroAulas= "Aulas.csv";
 			BufferedReader readerAulas = new BufferedReader(new FileReader("files" + File.separator + ficheroAulas));
 	        
-			System.out.println("Aulas Disponibles: \n");
+			System.out.println("Aulas Disponibles: \n"
+							+ "-------------------\n");
 			
 	        String line = "";
 	        while((line = readerAulas.readLine()) != null){        	
 	        	
 	        	//Alumno alTemp = new Alumno(0,null,null,0);
 	            String[] array = line.split(";");
-	            String part1 = array[0]; //Alumno
-	    		String part2 = array[1]; //Fecha
-	    		String part3 = array[2]; //Responsable
-	    		String part4 = array[3]; //Aula
-	    		String part5 = array[4];
-	    		
-	    		System.out.println("Nombre: "+part1+  "\n");
+	            String part1 = array[0]; //Nombre
+	    		String part2 = array[1]; //Edificio
+	    		String part3 = array[2]; //Aforo
+	    		String part4 = array[3]; //Proyector
+	    		String part5 = array[4]; //Pizarra
+	    		String part6 = array[5]; //Tipo Sala	
+	    		System.out.println("Nombre: "+part1+", Edificio: "+ part2+", Aforo: "+part3+", Tipo de Sala: "+part6+"\n");
 	        }
 	        
 	        
