@@ -383,33 +383,47 @@ public class SistemaReserva {
 	
 	public void removeLineFromFile(String ficheroReservas, String lineToRemove) {
 
-		File inputFile = new File("files" + File.separator + ficheroReservas);
-		File tempFile = new File(inputFile.getAbsolutePath() + ".tmp");
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-
-			System.out.println("ok");
-			String currentLine;
-
-			while((currentLine = reader.readLine()) != null) {
-				System.out.println("okp");
-
-			    // trim newline when comparing with lineToRemove
-			    String trimmedLine = currentLine.trim();
-			    if(trimmedLine.equals(lineToRemove)) continue;
-				System.out.println("oki");
-
-			    writer.write(currentLine + System.getProperty("line.separator"));
+		Scanner entradaEscaner = new Scanner (System.in); //Creación de un objeto Scanner, perteneciente a la biblioteca util
+		String nombresala=lineToRemove;
+		
+	    BufferedReader br = null;
+	    BufferedWriter bw = null;
+	    File fold = null;
+	    File fnew = null;
+	    String ruta1 = ficheroReservas;
+	    String ruta2 = "aux"+ficheroReservas;
+	    
+	    try{
+	    
+	    fold = new File("files" + File.separator + ruta1);
+	    fnew = new File("files" + File.separator + ruta2);
+		
+		if(fold.exists()) {
+			
+			br = new BufferedReader(new FileReader(fold));
+			String linea;
+			
+			while( (linea=br.readLine()) != null) {
+				
+				if (linea.indexOf(nombresala) == -1) {
+				
+				bw = new BufferedWriter(new FileWriter(fnew, true));
+				bw.write(linea+"\n");
+				bw.close();
+				}
+				else {
+				
+				}
 			}
-			writer.close(); 
-			reader.close(); 
-			System.out.println("okf");
-			if (inputFile.delete())
-		        System.out.println("El fichero ha sido borrado satisfactoriamente");
-		    else
-		        System.out.println("El fichero no pudó ser borrado");
-			boolean successful = tempFile.renameTo(inputFile);
+			br.close();
+			
+			bw = new BufferedWriter(new FileWriter(fnew, true));	
+			bw.close();
+			
+			fold.delete();
+			fnew.renameTo(fold);
+		}
+		
 		}catch (Exception e) {
 			// TODO: handle exception
 		}

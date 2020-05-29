@@ -38,7 +38,7 @@ public class GestionEspacio {
 		
 		fichero = new FileWriter("files" + File.separator + ficheroAulas, true);
         pw = new BufferedWriter(fichero);
-        pw.write(nombre + ";" + ubicacion + ";" + categoriaEspacio + ";" + aforo + ";" + proyector + ";" + pizarra + "\n");
+        pw.write(nombre + ";" + ubicacion + ";" + aforo + ";" + proyector + ";" + pizarra +";"+ categoriaEspacio + "\n");
         pw.close();
 
 		return true;
@@ -100,5 +100,38 @@ public class GestionEspacio {
 		return false;
 		
 	} //Fin BorrarEspacio
+	
+	public void mostrarEspacios() {
+		
+		try {
+			
+			String ficheroAulas= "Aulas.csv";
+			BufferedReader readerAulas = new BufferedReader(new FileReader("files" + File.separator + ficheroAulas));
+	        
+			System.out.println("Aulas Disponibles: \n");
+			
+	        String line = "";
+	        while((line = readerAulas.readLine()) != null){        	
+	        	
+	        	//Alumno alTemp = new Alumno(0,null,null,0);
+	            String[] array = line.split(";");
+	            String part1 = array[0]; //Alumno
+	    		String part2 = array[1]; //Fecha
+	    		String part3 = array[2]; //Responsable
+	    		String part4 = array[3]; //Aula
+	    		String part5 = array[4];
+	    		
+	    		System.out.println("Nombre: "+part1+  "\n");
+	        }
+	        
+	        
+	        
+	        readerAulas.close();
+		
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
 	
 }
