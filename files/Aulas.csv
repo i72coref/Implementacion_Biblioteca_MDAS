@@ -2,3 +2,6 @@ Aula1;edificio1;30;1;2;AULA
 Clase de primero;Edificio Leonardo Da Vinci;40;1;2;AULA
 Aula B11;Aulario;10;2;1;SALA_USO_MULTIPLE
 Clase Magistral;Edificio Albert Einstein;100;2;2;AULA
+Aula B10;Aulario;200;2;1;SALA_USO_MULTIPLE
+Aula A3;Aulario;300;1;2;AULA
+Clase Especial;20;2;2;LABORATORIO

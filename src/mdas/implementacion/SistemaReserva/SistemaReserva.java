@@ -1,3 +1,9 @@
+/**
+ * Fichero que gestiona todo el sistema de reservas
+ * @version 1.0, 29/05/2020
+ * @author David Bermejo Sanchez, Francisco Javier Cordoba Rey, Jorge Jesus Chaparro Ibarra, Manuel Gomez Serrano, Sergio Alhama Cosano
+ */
+
 package mdas.implementacion.SistemaReserva;
 
 import java.io.BufferedReader;
@@ -15,8 +21,17 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
+
+
+
 public class SistemaReserva {
 
+	/** 
+	 * Permite escoger que caracteristicas tiene que tener el aula que deseas
+	 * @param userOnline Usuario que esta conectado
+	 * @return nada
+	 */
+	
 	public void reservarAula(String userOnline) {//He pensado en que tengamos una ilsta con las posibilidades y que en funcion de las respuestas que nos den les asignmos ese aula, que estaria en un doc
 		
 
@@ -43,7 +58,7 @@ public class SistemaReserva {
 	    	//ahora lo mandamos a otra funcion para hacer el check con el doc de aulas.txt
 			comprobarAulas(aforoRequerido,respuestaProyector,respuestaPizarra, userOnline);
 			
-			
+			entradaEscaner.close();
 	    }catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -51,6 +66,14 @@ public class SistemaReserva {
 		
 	}
 	
+	/** 
+	 * Comprueba las aulas en funcion de lo especificado previamente
+	 * @param aforoRequerido 
+	 * @param respuestaProyector
+	 * @param respuestaPizarra
+	 * @param userOnline
+	 * @return nada
+	 */
 	
 	public void comprobarAulas(int aforoRequerido, int respuestaProyector, int respuestaPizarra, String userOnline) {
 		
@@ -99,6 +122,14 @@ public class SistemaReserva {
 		
 	}
 	
+	/** 
+	 * Guarda la reserva en el fichero de reservas
+	 * @param userAlumnoReserva
+	 * @param nombreAula
+	 * @param fecha
+	 * @return nada
+	 */
+	
 	public void guardarReserva(String userAlumnoReserva, String nombreAula, String fecha) {
 		FileWriter fichero = null;
         BufferedWriter pw = null;
@@ -115,6 +146,11 @@ public class SistemaReserva {
 		}
 		
 	}
+	
+	/** 
+	 * Muestra las reservas en vigor actualmente
+	 * @return nada
+	 */
 	
 	public void consultarReservas() {
 		
@@ -145,6 +181,12 @@ public class SistemaReserva {
 			// TODO: handle exception
 		}
 	}
+	
+	/** 
+	 * Guarda la reserva en el fichero de reservas
+	 * @param userOnline
+	 * @return boolean por si tiene o no reservas realizadas el usuario
+	 */
 	
 	public boolean consultarReservasUser(String UserOnline) {
 		try {
@@ -183,6 +225,12 @@ public class SistemaReserva {
 		return false;
 	}
 	
+	/** 
+	 * Comprueba que escribes esta disponible
+	 * @param aulaDeseada
+	 * @return String con la fecha deseada
+	 */
+	
 	public String comprobarDisponibilidadDeFecha(String aulaDeseada) {
 		
 		try {
@@ -197,7 +245,7 @@ public class SistemaReserva {
 				fechaDeseada = entradaEscaner.nextLine();
 				check = comprobarFechaConFicheroDeReserva(fechaDeseada,aulaDeseada);
 			}
-			
+			entradaEscaner.close();
 			return fechaDeseada;
 			
 		} catch (Exception e) {
@@ -207,6 +255,13 @@ public class SistemaReserva {
 		return null;
 		
 	}
+	
+	/** 
+	 * Comprueba en la base de datos para el aula deseada si esta disponible el dia deseado
+	 * @param fechaDeseada
+	 * @param aulaDeseada
+	 * @return boolean por si esta disponible el dia para el aula o no
+	 */
 	
 	public Boolean comprobarFechaConFicheroDeReserva(String fechaDeseada, String aulaDeseada) {
 
@@ -244,6 +299,12 @@ public class SistemaReserva {
 
 		
 	}
+	
+	/** 
+	 * Nos permite modificar una reserva del propio usuario cambiando la reserva completa o su fecha
+	 * @param userOnline
+	 * @return boolean para comprobar si tiene reservas realizadas o no, devolviendo al menu en caso de no tener ninguna reserva
+	 */
 	
 	public boolean modificarUnaReserva(String UserOnline) {
 		FileWriter fichero = null;
@@ -336,7 +397,7 @@ public class SistemaReserva {
 				System.out.println("Esa opción no está disponible o no has escrito el número bien.\n");
 			}
 			
-			
+			sn.close();
 			return true; //modificarUnaReserva
 			}else {
 				System.out.println("No tienes reservas realizadas, por tanto, no puedes modificar");
@@ -348,6 +409,11 @@ public class SistemaReserva {
 		return false;
 	}
 	
+	/** 
+	 * comprobación de la fecha pasada como parametro para saber si es anterior, igual o posterior al día de hoy
+	 * @param fechaDeseada
+	 * @return boolean true si la fecha actual es anterior a la deseada y false si es igual o superior
+	 */
 	
 	public Boolean comprobarFechaConLaActualDelDia(String fechaDeseada) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -379,7 +445,12 @@ public class SistemaReserva {
 		
 	}
 	
-	
+	/** 
+	 * Borra una linea del fichero de reservas
+	 * @param ficheroReservas
+	 * @param lineToRemove
+	 * @return nada
+	 */
 	
 	public void removeLineFromFile(String ficheroReservas, String lineToRemove) {
 
@@ -419,7 +490,7 @@ public class SistemaReserva {
 			
 			bw = new BufferedWriter(new FileWriter(fnew, true));	
 			bw.close();
-			
+			entradaEscaner.close();
 			fold.delete();
 			fnew.renameTo(fold);
 		}
