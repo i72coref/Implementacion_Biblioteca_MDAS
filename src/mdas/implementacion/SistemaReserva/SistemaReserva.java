@@ -58,7 +58,6 @@ public class SistemaReserva {
 	    	//ahora lo mandamos a otra funcion para hacer el check con el doc de aulas.txt
 			comprobarAulas(aforoRequerido,respuestaProyector,respuestaPizarra, userOnline);
 			
-			entradaEscaner.close();
 	    }catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -245,7 +244,8 @@ public class SistemaReserva {
 				fechaDeseada = entradaEscaner.nextLine();
 				check = comprobarFechaConFicheroDeReserva(fechaDeseada,aulaDeseada);
 			}
-			entradaEscaner.close();
+			
+			
 			return fechaDeseada;
 			
 		} catch (Exception e) {
@@ -397,7 +397,7 @@ public class SistemaReserva {
 				System.out.println("Esa opción no está disponible o no has escrito el número bien.\n");
 			}
 			
-			sn.close();
+			
 			return true; //modificarUnaReserva
 			}else {
 				System.out.println("No tienes reservas realizadas, por tanto, no puedes modificar");

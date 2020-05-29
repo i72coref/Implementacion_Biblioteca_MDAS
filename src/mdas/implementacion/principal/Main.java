@@ -72,7 +72,6 @@ public class Main {
         	
         } //Fin While
         
-        sn.close();
 		
 		}catch(Exception e) {
 			

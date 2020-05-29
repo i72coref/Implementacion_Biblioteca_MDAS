@@ -47,7 +47,7 @@ public class GestionEspacio {
         pw.write(nombre + ";" + ubicacion + ";" + aforo + ";" + proyector + ";" + pizarra +";"+ categoriaEspacio + "\n");
         pw.close();
         
-        entradaEscaner.close();
+        
 		return true;
 		
 		}catch (Exception e) {

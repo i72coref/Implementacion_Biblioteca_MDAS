@@ -50,7 +50,6 @@ public class Identificacion {
 		            return user;
 	    		}
 	    		
-				entradaEscaner.close();
 	        }
 			readerUser.close();
 
